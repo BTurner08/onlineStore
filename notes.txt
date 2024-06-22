@@ -1,0 +1,5 @@
+cd C:\Users\airbl\OneDrive\Fullstack\onlineStore\server
+
+venv\Scripts\activate
+
+py server.py

@@ -1,8 +1,11 @@
 from flask import Flask,request
 import json
+from bson import ObjectId
 from config import db
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app) #this line disables CORS policy
 
 @app.get("/")
 def home():
@@ -67,5 +70,12 @@ def get_product():
         products.append(fix_id(prod))
 
     return json.dumps(products)
+
+
+@app.delete("/api/products/<id>")
+def delete_product(id):
+    db_id = ObjectId(id)
+    res = db.products.delete_one({"_id": db_id})
+    return json.dumps({"delete": res.deleted_count})
 
 app.run(debug=True)
